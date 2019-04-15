@@ -1,6 +1,6 @@
 # Formatando números inteiros
 
-Em C, podemos formatar um *int* da seguinte forma:
+Em C, podemos declarar um *int* da seguinte forma:
 
 ```C
 int dec = 10; // dec = 10
@@ -10,7 +10,7 @@ int hex = 0x10; // hex = 16
 
 Ou seja, se colocarmos um valor sem *0* a esquerda, ele será convertido para a base 10. Se colocarmos *0* antes do número, ele será convertido para a base 8. Se colocarmos *0x* antes do número, ele será convertido para a base 16.
 
-Também existe uma [extensão do GCC](https://gcc.gnu.org/onlinedocs/gcc/Binary-constants.html) que faz a mesma coisa para binário:
+Também existe uma [extensão do GCC](https://gcc.gnu.org/onlinedocs/gcc/Binary-constants.html) que faz a mesma coisa para binário, e podemos escrever o seguinte código:
 
 ```C
 int bin = 0b10; // bin = 2
@@ -28,7 +28,7 @@ Vou falar rapidão aqui sobre especificadores de formato da linguagem C, utiliza
 
 Bom começamos do básico. Podemos formular essa pequena tabela, que por si só já consegue nos dar uma boa noção das coisas.
 
-[Tabela de máscaras](https://homepages.dcc.ufmg.br/~rodolfo/aedsi-2-10/printf_scanf/conversaoPrintf.gif)
+![Tabela de máscaras](https://homepages.dcc.ufmg.br/~rodolfo/aedsi-2-10/printf_scanf/conversaoPrintf.gif)
 
 ## Diferença entre %i e %d
 
