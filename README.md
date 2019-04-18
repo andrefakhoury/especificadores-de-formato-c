@@ -28,7 +28,33 @@ Vou falar rapidão aqui sobre especificadores de formato da linguagem C, utiliza
 
 Bom começamos do básico. Podemos formular essa pequena tabela, que por si só já consegue nos dar uma boa noção das coisas.
 
-![Tabela de máscaras](https://homepages.dcc.ufmg.br/~rodolfo/aedsi-2-10/printf_scanf/conversaoPrintf.gif)
+| Format specifier | Description                                    |  Supported Data Types                       |
+|------------------|------------------------------------------------|---------------------------------------------|
+| %c               | Character                                      |  char unsigned char                         |
+| %d               | Signed Integer                                 |  short unsigned short int long              |
+| %e or %E         | Scientific notation of float values            |  float double                               |
+| %f               | Floating point                                 | float                                       |
+| %g or %G         | Similar as %e or %E                            |  float double                               |
+| %hi              | Signed Integer (Short)                         | short                                       |
+| %hu              | Unsigned Integer (Short)                       | unsigned short                              |
+| %i               | Signed Integer                                 |  short unsigned short int long              |
+| %l or %ld or %li | Signed integer                                 |  long                                       |
+| %lf              | Floating point                                 | double                                      |
+| %Lf              | Floating point                                 | long double                                 |
+| %lu              | Unsigned integer                               |  unsigned int unsigned long                 |
+| %lli or %lld     | Signed integer                                 | long long                                   |
+| %llu             | Unsigned integer                               | unsigned long long                          |
+| %o               | Octal representation of Integer                |  short unsigned short int unsigned int long |
+| %p               | Address of pointer to void void*               | void *                                      |
+| %s               | String                                         | char *                                      |
+| %u               | Unsigned Integer                               |  unsigned int unsigned long                 |
+| %x or %X         | Hexadecimal representation of Unsigned Integer |  short unsigned short int unsigned int long |
+| %n               | Prints nothing                                 |                                             |
+| %%               | Prints % character                             |                                             |
+
+## Alguns exemplos no scanf
+
+![Exemplos do scanf - valeu Braulio](https://i.imgur.com/Sj4uSsb.jpg)
 
 ## Diferença entre %i e %d
 
@@ -66,3 +92,5 @@ http://www.mobidev.com/shalan/scanf_printf.htm
 https://homepages.dcc.ufmg.br/~rodolfo/aedsi-2-10/printf_scanf/printfscanf.html
 
 https://stackoverflow.com/questions/2611764/can-i-use-a-binary-literal-in-c-or-c
+
+https://codeforwin.org/2015/05/list-of-all-format-specifiers-in-c-programming.html
