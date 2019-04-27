@@ -204,19 +204,20 @@ printf("%.*f", 2, 3.141516);
 //saida: 3.14
 ```
 
-Também podemos definir o espaçamento que certa variável terá - por exemplo, se eu quero alinhar uma variável à esquerda de um bloco de *n* caracteres: `printf("%<n>d");`. Pode ser utilizado tanto em números inteiros quanto em outros tipos de variável.
+Também podemos definir o espaçamento que certa variável terá - por exemplo, se eu quero alinhar uma variável à direita de um bloco de *n* caracteres: `printf("%<n>d");`. Pode ser utilizado tanto em números inteiros quanto em outros tipos de variável.
 
 ```C
-printf("___%3d___\n", 10); // saída: ___ 10___
-printf("___%5.2f___\n", 3.14); // saída: ___ 3.14___
+printf("|%3d|\n", 10);     // saída: | 10|
+printf("|%5.2f|\n", 3.14); // saída: | 3.14|
 ```
 
-Em strings, deve-se usar da seguinte forma:
+Também é possível alinhar à esquerda colocando-se um hífen antes:
 
 ```C
-printf("%-15s", "oi");
+printf("|%-3d|\n", 10);     // saída: |10 |
+printf("|%-5.2f|\n", 3.14); // saída: |3.14 |
+printf("|%-5s|\n", "oi");   // saída: |oi   |
 ```
-// %-s
 
 ### Leitura de strings - meio complicado, mas bora lá
 

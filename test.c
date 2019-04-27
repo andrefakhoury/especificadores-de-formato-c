@@ -4,14 +4,9 @@
 #include <math.h>
 
 int main(int argc, char* argv[]) {
-	printf("%-15s\n\n", "oi");
-
-	char s1[1024], s2[1024];
-	scanf("%s", s1);
-	scanf("%*[\n\r]");
-	scanf("%s", s2);
-
-	printf("%s-%s.\n", s1, s2);
+	printf("|%-3d|\n", 10);     // saída: | 10|
+printf("|%-5.2f|\n", 3.14); // saída: | 3.14|
+printf("|%-5s|\n", "oi");   // saída: | 3.14|
 
 	return 0;
 
