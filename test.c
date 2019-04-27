@@ -5,6 +5,15 @@
 
 int main(int argc, char* argv[]) {
 
+	char s1[1024], s2[1024];
+	scanf("%s", s1);
+	scanf("%*[\n\r]");
+	scanf("%s", s2);
+
+	printf("%s-%s.\n", s1, s2);
+
+	return 0;
+
 	/** Convertendo numeros diretamente */
 	int dec = 10; // dec = 10
 	int oct = 010; // oct = 8
@@ -24,17 +33,14 @@ int main(int argc, char* argv[]) {
 	sscanf(input, "%i", &i); // i = 8
 
 	/** Trabalhando com ponto flutuante */
-	printf("%lf\n", acos(-1.0)); // 6 casas decimais: 3.141593
-	printf("%lf\n", 1.2345678);  // 6 casas decimais: 1.234568
-
 	double dbl = 1.2345678;
-	printf("|%15lf|\n", dbl);
-	printf("|%.*lf|\n", 10, dbl);
 
-	/** Erros de precisao... */
-	double t1 = 1, t2 = 0;
-	for (int i = 1; i <= 10; i++) t2 += 0.1;
-	printf("t1: %.5lf t2: %.5lf == %d\n", t1, t2, t1 == t2);
+	printf("%lf\n", dbl);  // 6 casas decimais: 1.234568
+	printf("|%.*lf|\n", 13, dbl);
+	printf("|%15lf|\n", dbl);
+
+	printf("___%3d___\n", 10); // ___ 10___
+	printf("___%5.2f___\n", 3.14); // ___ 3.14___
 
 	strcpy(input, "10:22:30");
 	int h, m, s;
@@ -45,6 +51,11 @@ int main(int argc, char* argv[]) {
 	char str1[1024], str2[1024];
 	sscanf(input, "%[^#]#%s", str1, str2);
 	printf("%s-%s\n", str1, str2);
+
+	char tel1[15] = "(11)11111-1111";
+	char tel2[15] = "\0";
+	printf("|%-14s|\n", tel1);
+	printf("|%-14s|\n", tel2);
 
 	return 0;
 }
