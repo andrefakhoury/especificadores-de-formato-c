@@ -124,15 +124,46 @@ Existem ainda outras funções de leitura e escrita, algumas específicas para a
 
 # Buffer
 
-// TODO
+Basicamente, *buffer* é uma *região de memória* utilizada para armazenar dados temporariamente. Portanto, quando se escreve algo em um teclado, esses dados primeiramente vão para um *buffer de entrada*, e depois são utilizados por alguém (por exemplo, pelo *scanf* do seu programa em C).
 
 ## Buffer de Entrada
 
-// TODO
+O buffer de entrada, como o nome sugere, armazena os dados de entrada (vindos, por exemplo, do teclado) temporariamente, para depois ser utilizado.
 
 ## Buffer de Saída
 
-// TODO
+O buffer de saída, como o nome sugere, armazena os dados de saída temporariamente, para depois ser utilizado (por exemplo, sendo impresso na tela do terminal).
+
+## fflush
+
+Em C, é possível *forçar* a limpeza de certa *stream* (por exemplo, *stdint* ou *stdout*).
+
+No caso da *stream* ser de saída (como *stdout*), o fflush força a escrita de todos os dados do buffer. 
+
+No caso da *stream* ser de entrada (como *stdin*), o fflush descarta todos os dados do buffer de entrada que foram buscados mas ainda não consumidos pela função.
+
+Por exemplo, os seguintes trechos de código executam de maneira distinta:
+
+```C
+for (int i = 1; i <= 5; i++) {
+	printf("%d", i);
+	sleep(1);
+}
+// espera tudo, imprime tudo junto
+
+for (int i = 1; i <= 5; i++) {
+	printf("%d", i);
+	fflush(stdout);
+	sleep(1);
+}
+// imprime e espera, imprime e espera...
+
+for (int i = 1; i <= 5; i++) {
+	printf("%d\n", i);
+	sleep(1);
+}
+// imprime e espera, imprime e espera...
+```
 
 # Especificadores de Formato
 
@@ -221,7 +252,57 @@ printf("|%-5s|\n", "oi");   // saída: |oi   |
 
 ### Leitura de strings - meio complicado, mas bora lá
 
-// TODO, combar com buffer tb
+A leitura de strings e/ou caracteres podem ser atrapalhados por coisas simples, como espaços em branco. É por isso que é necessário saber qual a formatação da entrada que o seu programa vai receber - por exemplo, se existe quebra de linha entre os dados, se tem espaços em branco entre strings, etc.
+
+Quando se utiliza um `scanf("%c", &caractere);`, o primeiro caractere que estiver no *buffer de entrada* será lido e atribuído à variável *caractere* - inclusive espaços, '\n' e afins.
+
+Se um `scanf(" ")` for utilizado, todos os espaços em branco que estão antes de algo que não seja um espaço em branco serão ignorados. Ou seja, o combo `scanf("%c ", &caractere);` garante que, após a leitura de *caractere*, espaços extra serão ignorados.
+
+Outra coisa interessante para se notar é que o especificador `%s` lê caracteres até que seja encontrado algum espaço em branco, como ' ', '\n' e afins - e esses caracteres **continuam** no buffer após a leitura.
+
+Ou seja, caso seja fornecida a entrada `string1 string2`, e se deseja armazenar as duas palavras em strings distintas, deve-se ignorar o caractere de espaço ' ' do meio. Para fazer isso, utiliza-se o comando `scanf("%s %s", str1, str2);`.
+
+Mas e se eu quiser ler uma string até determinado caractere específico? Por exemplo, eu desejo que a entrada anterior `string1 string2` seja salva na **mesma string**. Para isso, pode-se utilizar a seguinte máscara para ler até o final da linha:
+
+```C
+scanf("%[^\n\r]", str);
+```
+
+Sendo que o [^] representa que deve ser feita a leitura até que chegue em algum dos caracteres determinados - nesse caso, '\n' ou '\r'. Quando algum dos caracteres é encontrado, o *scanf* para a leitura.
+
+Outro exemplo é se eu quiser ler uma string até que seja encontrado um caractere de $:
+
+```C
+scanf("%[^$]", str);
+// exemplo de entrada: abc def aaa$
+// conteudo de str: abc def aaa
+```
+
+Porém, quando o *scanf* para a leitura, o *buffer* continua com o caractere delimitador. Ou seja, no exemplo anterior, o primeiro caractere presente no buffer após a leitura seria o '$'. Caso eu queira ignorar esse caractere, posso fazer o seguinte:
+
+```C
+scanf("$");
+```
+
+Isso é útil quando se quer ler um conjunto de strings, e deseja-se que os caracteres delimitadores sejam ignorados. Por exemplo, se eu quero ler 2 strings que estão da seguinte forma:
+
+```
+string1$string2
+```
+
+O seguinte código estaria incorreto:
+
+```C
+char str1[32], str2[32];
+scanf("%[^$] %s", str1, str2);
+```
+
+Pois a *str2* armazenaria a string `$string2`, sendo que o caractere '$' deveria ter sido ignorado. Para isso, deve-se fazer algo como:
+
+```C
+char str1[32], str2[32];
+scanf("%[^$]$%s", str1, str2);
+```
 
 ### Ignorar certa entrada
 
@@ -268,7 +349,7 @@ Com isso, eu consigo ignorar os caracteres de *\n* e *\r*.
 
 ### Horário
 
-Digamos que a entrada do seu programa é um horário no formato *hh:mm:ss*, e você quer salvar a hora, minuto e segundo em 3 inteiros separados. Como podemos fazer isso utilizando o scanf?
+Digamos que a entrada do seu programa é um horário no formato *hh:mm:ss*, e você quer salvar a hora, minuto e segundo em 3 inteiros separados. Como podemos fazer isso utilizando *apenas* o scanf?
 
 ```C
 int h, m, s; // hora, minuto e segundo
@@ -346,7 +427,7 @@ int n;
 while (scanf("%d", &n) != EOF) {
 	...
 }
-``` 
+```
 
 # Referências
 

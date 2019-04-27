@@ -4,12 +4,6 @@
 #include <math.h>
 
 int main(int argc, char* argv[]) {
-	printf("|%-3d|\n", 10);     // saída: | 10|
-printf("|%-5.2f|\n", 3.14); // saída: | 3.14|
-printf("|%-5s|\n", "oi");   // saída: | 3.14|
-
-	return 0;
-
 	/** Convertendo numeros diretamente */
 	int dec = 10; // dec = 10
 	int oct = 010; // oct = 8
