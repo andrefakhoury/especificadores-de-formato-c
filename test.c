@@ -4,6 +4,7 @@
 #include <math.h>
 
 int main(int argc, char* argv[]) {
+	printf("%-15s\n\n", "oi");
 
 	char s1[1024], s2[1024];
 	scanf("%s", s1);

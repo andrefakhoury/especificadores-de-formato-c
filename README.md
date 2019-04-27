@@ -1,7 +1,6 @@
 # Especificadores de formato em C... e algumas coisas a mais
 
-Nessa aula......
-// TODO
+Nessa aula, falarei principalmente sobre especificadores de formato para as funções *scanf* e *printf* da linguagem C - e também vou citar mais algumas funções ou truques relacionados a isso, e que acho úteis.
 
 # Formatando números inteiros
 
@@ -25,11 +24,11 @@ int bin = 0b10; // bin = 2
 
 Os dois caracteres servem para (normalmente) a mesma coisa - pular/quebrar uma linha. Porém, normalmente, ouvimos falar apenas do *\n*, e deixamos o *\r* de lado - o que não é muito bom.
 
-Na verdade, utilizar *\n* ou *\r* depende bastante do sistema que está sendo utilizado.
+Na verdade, a existência de *\n* ou *\r* depende bastante do sistema que está sendo utilizado.
 
 ## q?
 
-É meio difícil explicar isso de forma completa e simples, então vou <s>copiar</s> traduzir parte dessa [resposta do stack overflow](https://stackoverflow.com/questions/1761051/difference-between-n-and-r).
+É meio difícil explicar isso de forma completa e simples, então vou <s>copiar</s> parafrasear parte dessa [resposta do stack overflow](https://stackoverflow.com/questions/1761051/difference-between-n-and-r).
 
 - em sistema Unix (e em baseados nele), o *\n* é o caractere de fim de linha, e o *\r* não representa nada em especial;
 
@@ -188,17 +187,35 @@ scanf("%i", &n); // n = 16
 
 ### Espaçamento no print
 
-// primeiro com float
-// %.2f e tals
-// %.\*f
+Podemos formatar o *print* de um número de ponto flutuante *(float)* da maneira que quisermos - em relação à casas depois da vírgula e coisas assim.
 
-// depois fala do %Xd por exemplo, pra espacar
+Por exemplo, se eu quiser imprimir um número com 2 casas depois da vírgula do seguinte modo: `printf("%.<numr. casas>f", <valor>)`.
 
 ```C
-printf("___%3d___\n", 10); // ___ 10___
-printf("___%5.2f___\n", 3.14); // ___ 3.14___
+float f = 3.141516;
+printf("%.2f", f);
+//saida: 3.14
 ```
 
+O número de casas depois da vírgula também pode ser especificado por uma variável: `printf("%.*f", <numr. casas>, <valor>)`
+
+```C
+printf("%.*f", 2, 3.141516);
+//saida: 3.14
+```
+
+Também podemos definir o espaçamento que certa variável terá - por exemplo, se eu quero alinhar uma variável à esquerda de um bloco de *n* caracteres: `printf("%<n>d");`. Pode ser utilizado tanto em números inteiros quanto em outros tipos de variável.
+
+```C
+printf("___%3d___\n", 10); // saída: ___ 10___
+printf("___%5.2f___\n", 3.14); // saída: ___ 3.14___
+```
+
+Em strings, deve-se usar da seguinte forma:
+
+```C
+printf("%-15s", "oi");
+```
 // %-s
 
 ### Leitura de strings - meio complicado, mas bora lá
