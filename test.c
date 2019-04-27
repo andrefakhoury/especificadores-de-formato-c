@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 
 int main(int argc, char* argv[]) {
@@ -17,7 +18,7 @@ int main(int argc, char* argv[]) {
 	printf("%i\n", 020); // 16
 
 	/** Fazendo simulacao da leitura */
-	char input[] = "010";
+	char input[9999] = "010";
 	int d, i;
 	sscanf(input, "%d", &d); // d = 10
 	sscanf(input, "%i", &i); // i = 8
@@ -34,6 +35,16 @@ int main(int argc, char* argv[]) {
 	double t1 = 1, t2 = 0;
 	for (int i = 1; i <= 10; i++) t2 += 0.1;
 	printf("t1: %.5lf t2: %.5lf == %d\n", t1, t2, t1 == t2);
+
+	strcpy(input, "10:22:30");
+	int h, m, s;
+	sscanf(input, "%d:%d:%d", &h, &m, &s);
+	printf("%d %d %d\n", h, m, s);
+
+	strcpy(input, "str1#str2");
+	char str1[1024], str2[1024];
+	sscanf(input, "%[^#]#%s", str1, str2);
+	printf("%s-%s\n", str1, str2);
 
 	return 0;
 }

@@ -1,3 +1,8 @@
+# Especificadores de formato em C... e algumas coisas a mais
+
+Nessa aula......
+// TODO
+
 # Formatando números inteiros
 
 Em C, podemos declarar um *int* da seguinte forma:
@@ -18,9 +23,55 @@ int bin = 0b10; // bin = 2
 
 # Principais funções para *scan* e *print* em C
 
-Padrão: *scanf* e *printf*.
+OBS: Podemos ver a documentação das funções no linux escrevendo ```man <nome_da_função>``` no terminal - porém, o *man* serve para todas as funções do linux, e as vezes as funções tem o mesmo nome em C e em bash, por exemplo. Aí, pode-se escrever ```man 3 <nome_da_função>``` no terminal, que pega a seção 3 do manual, que possui as funções do C.
 
-Podemos ver a documentação das funções no linux escrevendo ```man <nome_da_função>``` no terminal.
+## scanf
+
+// TODO
+
+## printf
+
+// TODO
+
+### stdin e stdout
+
+// TODO
+
+## sscanf
+
+// TODO
+
+## sprintf
+
+// TODO
+
+## getchar
+
+// TODO
+
+## puts
+
+// TODO
+
+## fgets
+
+// TODO
+
+## Outras
+
+Existem ainda outras funções de leitura e escrita, algumas específicas para algumas coisas e tal. Porém, algumas não são tão úteis no geral, enquanto outras necessitam de um certo conhecimento de arquivos em C para serem entendidas, o que não é o objetivo dessa aula. Porém, vou citar algumas apenas para desencargo de consciência: *gets*, *fgetc*, *fputc*, *fscanf*, *fprintf*, *fread*, ...
+
+# Buffer
+
+// TODO
+
+## Buffer de Entrada
+
+// TODO
+
+## Buffer de Saída
+
+// TODO
 
 # Especificadores de Formato
 
@@ -72,6 +123,48 @@ Ou seja, suponha a entrada *020* no código abaixo:
 scanf("%d", &n); // n = 20
 scanf("%i", &n); // n = 16
 ```
+
+## Exemplos práticos
+
+Digamos que a entrada do seu programa é um horário no formato *hh:mm:ss*, e você quer salvar a hora, minuto e segundo em 3 inteiros separados. Como podemos fazer isso utilizando o scanf?
+
+```C
+int h, m, s; // hora, minuto e segundo
+scanf("%d:%d:%d", &h, &m, &s); //le os inteiros ate os `:`
+```
+
+Bem de boas, certo? Vamos para outro exemplo agora: você receberá, no seu programa, duas palavras, separadas por um '#', e quer salvar cada palavra em um array de caracteres diferente. Por exemplo, considere a seguinte entrada:
+
+*primeira#segunda*
+
+Eu quero salvar "primeira" em um array, e "segunda" em outro. Também é possível fazer isso utilizando *scanf*, porém temos que tomar alguns cuidados.
+
+Se seguirmos a mesma lógica do exercício anterior, teríamos o seguinte código:
+
+```C
+char str1[1024], str2[1024];
+scanf("%s#%s", str1, str2);
+```
+
+Porém isso não promove o resultado esperado - com o *%s*, ocorreria a leitura de todos os caracteres até algum delimitador de espaço ou quebra de linha (*' ', '\n', '\r', ...*). Portanto, a *str1* receberia a entrada inteira (*primeira#segunda*), enquanto a *str2* ficaria vazia, pois o trick de colocar um *'#'* no meio do scanf foi totalmente inútil. Portanto, teríamos que fazer o seguinte código:
+
+```C
+char str1[1024], str2[1024];
+scanf("%[^#]#%s", str1, str2);
+```
+
+O que essa máscara faz é o seguinte: ele vai lendo todos os caracteres até chegar no *#*. Quando chegar no *#*, ele irá descartar o *#* (perceba que tem um *#* jogado no meio do *scanf*, antes do segundo *%s*). Depois disso, ele vai ler a segunda string, até chegar em um caractere delimitador de espaço ou final de linha.
+
+Isso pode parecer meio confuso no começo, mas vai ficar mais natural conforme se acostumar. Eu também recomendo testar várias combinações diferentes, e observar na prática como cada coisa funciona.
+
+Vamos agora para outro exemplo. Ele será bem parecido com o anterior, mas tem uma diferença: a entrada do seu programa será duas **frases** separadas por *'#'*, e eu quero salvar cada frase em um array diferente. Ou seja, podem ter espaços entre as palavras da mesma frase, e eu quero considerar tudo isso para salvar nos meus arrays. Por exemplo, suponha a seguinte entrada: *primeira string#segunda string*. Veja (um exemplo de) o código para isso:
+
+```C
+char str1[1024], str2[1024];
+scanf("%[^#]#%[^\n\r] ", str1, str2);
+```
+
+A leitura da primeira string não muda nada - ele continuará lendo tudo até chegar em um #. Porém, para a segunda string, perceba a entrada da máscara *[^\n\r]*. O que isso faz é que serão lidos todos os caracteres até que se chegue em um caractere delimitador de quebra de linha (*\n* ou *\r*), ou que a entrada do seu programa tenha acabado (por exemplo, se nao tiver quebra de linha, porem o arquivo chegou no final).
 
 # Referências
 
